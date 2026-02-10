@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi niña especial ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --color-principal: #ff4d6d;
+            --color-secundario: #ff8fa3;
+            --fondo: #fff0f3;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--fondo);
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            border: 2px solid var(--color-secundario);
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--color-principal);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #594d5b;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .heart-icon {
+            color: var(--color-principal);
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            height: 50px;
+            align-items: center;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #si {
+            background-color: var(--color-principal);
+            color: white;
+        }
+
+        #no {
+            background-color: #eee;
+            color: #888;
+            position: absolute; /* Para que se mueva libremente */
+        }
+
+        /* Lluvia de corazones */
+        .heart-rain {
+            position: absolute;
+            color: var(--color-secundario);
+            font-size: 1.5rem;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="heart-icon">❤️</div>
+        <h1>¡Hola, Aileen!</h1>
+        <p>Este primer mes ha sido el inicio de algo maravilloso.</p>
+        <p><strong>¿Aceptarías ser mi San Valentín y hacerme el novio más feliz del mundo?</strong></p>
+        
+        <div class="buttons">
+            <button id="si">¡SÍ, ACEPTO! ❤️</button>
+            <button id="no">No</button>
+        </div>
+    </div>
+
+    <script>
+        const btnNo = document.getElementById('no');
+        const btnSi = document.getElementById('si');
+
+        // 1. Botón "No" juguetón
+        btnNo.addEventListener('mouseover', moveButton);
+        btnNo.addEventListener('touchstart', moveButton);
+
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - btnNo.clientWidth);
+            const y = Math.random() * (window.innerHeight - btnNo.clientHeight);
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
+        }
+
+        // 2. Botón "Sí" con Confeti
+        btnSi.addEventListener('click', () => {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff4d6d', '#ff8fa3', '#ffccd5']
+            });
+
+            setTimeout(() => {
+                alert("¡Sabía que dirías que sí! 😍 Te amo muchísimo, gracias por este mes increíble.");
+                // Opcional: Redirigir a una foto de ustedes
+                window.location.href = "https://drive.google.com/file/d/10iY_zmRbHoOocaCiSHo36MABP8l9fnAc/view?usp=sharing";
+            }, 500);
+        });
+
+        // 3. Crear lluvia de corazones automática
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-rain');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 5000);
+        }, 300);
+    </script>
+</body>
+</html>
